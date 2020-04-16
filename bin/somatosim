@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+
+# Attribution
+# This is software was developed by Marwan A. Hawari, Celine Hong, and Leslie G. Biesecker at the National Human Genome Research Institute (NHGRI), National Institutes of Health (NIH). Please include proper attribution of the NHGRI as the developer of this program and include a link to the following [https://github.com/BieseckerLab/SomatoSim] in all publications and other public disclosures that reference the program and/or include data or research results that were generated utilizing the program.
+ 
+# Public Domain Notice
+# This software is a United States Government Work. Anyone may use the software on a worldwide and royalty-free basis for any purpose and anyone may reproduce and prepare derivative works without restriction. Although all reasonable efforts have been taken to ensure the accuracy and reliability of the software, the National Human Genome Research Institute (NHGRI), National Institutes of Health (NIH) and the U.S. Government do not and cannot warrant the performance or any results that may be obtained by using this software. NHGRI, NIH and the U.S. Government disclaim all warranties as to performance, merchantability or fitness for any particular purpose. No indemnification is intended or provided by the US government.
+
+global np
+import numpy as np
+global argparse
+import argparse
+
+
+global print_both,convert_BED,vaf_alt_distribution,count_alleles,select_reads
+from somatosim_fn.minor_fn import print_both,convert_BED,vaf_alt_distribution,count_alleles,select_reads,check_BED_columns
+import somatosim_fn.main_fn as main_fn
+
+
+parser = argparse.ArgumentParser(description='SomatoSim simulates somatic single nucleotide variants at user-specified variant allele fractions and depths of coverage')
+
+parser.add_argument('--version', action='version', version="SomatoSim version 1.0.0")
+
+######## Required #########
+
+parser.add_argument('-i', '--input-bam-file', dest='arg_input_bam_file', type=str, action='store', required=True, help='The full path of the input BAM file.')
+
+parser.add_argument('-b', '--input-bed-file', dest='arg_input_bed_file', type=str, action='store', required=True, help='The full path of the input BED file.')
+
+parser.add_argument('-o', '--output-directory', dest='arg_output_directory', type=str, action='store', required=True, help='The full path of the desired output directory. If the directory does not already exist, it will automatically be created.')
+
+
+######## Optional ##########
+
+parser.add_argument('--vaf-low', dest='arg_vaf_low', action='store', type=float, default=0.01, help='Lower bound of the desired VAF range. Input this value as a decimal, not as a percentage. This is ignored if the BED file input contains pre-defined VAF values. [Default: 0.01]')             
+
+parser.add_argument('--vaf-high', dest='arg_vaf_high', action='store', type=float, default=0.20, help='Upper bound of the desired VAF range. Input this value as a decimal, not as a percentage. This is ignored if the BED file input contains pre-defined VAF values. [Default: 0.20]')           
+
+parser.add_argument('--output-prefix', dest='arg_output_prefix', type=str, action='store', default='', help='The desired prefix for the output files. [Default: Input BAM prefix]')
+
+parser.add_argument('--number-snv', dest='arg_number_snv', type=int, action='store', default=0, help='The desired number of positions to mutate. [Default: Number of lines in the input BED file]')               
+
+parser.add_argument('--random-seed', dest='arg_random_seed', type=int, action='store', default=np.random.randint(100), help='The desired random seed. Choosing a seed will help with reproducibility. [Default: Random number between 0 and 100]')
+
+parser.add_argument('--down-sample', dest='arg_down_sample', type=int, action='store', default=0, help='The desired average coverage to down-sample the input BAM file to. [Default: No down-sampling]')
+
+parser.add_argument('--target-coverage', dest='arg_target_coverage', type=int, action='store', default=0, help='The depth of coverage that you may want to limit the selected positions to. [Default: None]')
+
+parser.add_argument('--coverage-tolerance', dest='arg_coverage_tolerance', type=float, action='store', default=0.10, help='The tolerance allowed when selecting reads for a specified target coverage. Input this value as a decimal, not as a percentage. This option is ignored if the --target-coverage value is not used. [Default: 0.10]')
+
+parser.add_argument('--coverage-MQ', dest='arg_coverage_MQ', type=float, action='store', default=20, help='The mapping quality used by samtools mpileup when calculating coverage. [Default: 20]')
+
+parser.add_argument('--coverage-BQ', dest='arg_coverage_BQ', type=float, action='store', default=20, help='The base quality used by samtools mpileup when calculating coverage. [Default: 20]')
+
+parser.add_argument('--minimum-separation', dest='arg_minimum_separation', type=int, action='store', default=1, help='Set the minimum number of bases that must separate simulated variants. [Default: 1]')
+
+parser.add_argument('--verbose', dest='arg_verbose', action='store_true', help='Displays the specific positions not selected during variant selection stage. Typing --verbose will turn the option on, and not typing anything will leave it off. [Default: Off]')
+
+parser.add_argument('--read-min-MQ', dest='arg_read_min_MQ', type=float, action='store', default=20, help='The minimum mapping quality used when selecting reads to introduce simulated variants into. [Default: 20]')
+
+parser.add_argument('--position-min-BQ', dest='arg_position_min_BQ', type=int, action='store', default=20, help='The minimum base quality used when selected reads to introduce simulated variants into. [Default: 20]')
+
+args = parser.parse_args()
+
+
+
+main_fn.variant_selection(args.arg_input_bam_file,
+                 args.arg_input_bed_file,
+                 args.arg_output_directory,
+                 args.arg_vaf_low,
+                 args.arg_vaf_high,
+                 args.arg_output_prefix,
+                 args.arg_number_snv,
+                 args.arg_random_seed,
+                 args.arg_down_sample,
+                 args.arg_target_coverage,
+                 args.arg_coverage_tolerance,
+                 args.arg_coverage_MQ,
+                 args.arg_coverage_BQ,
+                 args.arg_minimum_separation,
+                 args.arg_verbose)
+
+main_fn.variant_simulation(args.arg_read_min_MQ,
+                        args.arg_position_min_BQ)
+
+main_fn.variant_evaluation()
+
+
