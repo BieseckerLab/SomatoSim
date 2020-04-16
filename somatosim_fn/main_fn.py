@@ -679,13 +679,6 @@ def variant_selection(bam_directory_in,bed_in,output_directory,vaf_low_in,vaf_hi
 
 
 
-    if out_prefix:
-        np.savetxt(fullrunpath + '/' + out_prefix + '_simulation_input.txt', simulation_input_array_rounded_0based, fmt="%-10s",delimiter=" ",header="chromosome position position input_VAF coverage variant_coverage count_T count_G count_A count_C count_total monoallelic ref_allele alt_allele",comments='')
-    else:
-        np.savetxt(fullrunpath + '/simulation_input.txt', simulation_input_array_rounded_0based, fmt="%-10s",delimiter=" ",header="chromosome position position input_VAF coverage variant_coverage count_T count_G count_A count_C count_total monoallelic ref_allele alt_allele",comments='')
-
-
-
     print(" ",file=logfile)
     print('Variant selection stage metrics: ', file=logfile)
     print("--------------------------------", file=logfile)
