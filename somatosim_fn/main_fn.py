@@ -429,7 +429,7 @@ def variant_selection(bam_directory_in,bed_in,output_directory,vaf_low_in,vaf_hi
             break
 
         #select the position from the array of randomly distributed positions
-        selected_range = np.array(entire_BED_random_positions)[k]
+        selected_range = np.array(entire_BED_random_positions,dtype=object)[k]
         rando = int(selected_range[int(random_position_tracker[k])])
         random_position_tracker[k] +=1
 
