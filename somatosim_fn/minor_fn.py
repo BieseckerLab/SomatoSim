@@ -67,7 +67,7 @@ def vaf_alt_distribution(vaf_values,alt_values,save_file,description_string=''):
     plt.close()
     
     print(" ", file=save_file)
-    print("Vaiant allele fraction distribution " + description_string + ":", file=save_file)  ##############
+    print("VAF distribution " + description_string + ":", file=save_file)  ##############
     print(NumPosPerVAF, file=save_file)
     print(" ", file=save_file)
     
