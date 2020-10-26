@@ -61,8 +61,8 @@ def vaf_alt_distribution(vaf_values,alt_values,save_file,description_string=''):
     bincount = np.reshape(histo[0], (-1,1))
     binval = np.reshape(histo[1][:-1],(-1,1))
     NumPosPerVAF = np.concatenate((binval,bincount),1)
-    plt.title('Variant allele fraction distribution')
-    plt.xlabel('Variant allele fraction')
+    plt.title('VAF distribution')
+    plt.xlabel('VAF')
     plt.ylabel('Count')
     plt.close()
     
