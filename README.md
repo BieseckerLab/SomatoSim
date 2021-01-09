@@ -90,7 +90,7 @@ The output_dir directory should contain 4 files:
 * A results file: `simulation_output.txt`
 * A log file: `simulation_log.txt`
 
-Below is an example of the first 10 lines of the results file. The first 3 columns are the SNV coordinates, the `input_VAF` column is the target VAF, the `input_coverage` column is the original coverage at the position, the `output_VAF` column is the VAF calculated after making the mutations, the `output_coverage` column is the coverage after making the mutations (and should be the same as the `input_VAF` column), the `ref_allele` column is the original allele at the position, and the `alt_allele` is the new allele introduced by SomatoSim.
+Below is an example of the first 10 lines of the results file. The first 3 columns are the SNV coordinates, the `input_VAF` column is the target VAF, the `input_coverage` column is the original coverage at the position, the `output_VAF` column is the VAF calculated after making the mutations, the `output_coverage` column is the coverage after making the mutations (and should be the same as the `input_coverage` column), the `ref_allele` column is the original allele at the position, and the `alt_allele` is the new allele introduced by SomatoSim.
 
 ```text
 chromosome position position input_VAF input_coverage output_VAF output_coverage ref_allele alt_allele
