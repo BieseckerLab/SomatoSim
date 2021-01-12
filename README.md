@@ -52,7 +52,7 @@ Make sure you have the latest version of SAMtools and pip installed.
 
 Refer to the SAMtools documentation (http://www.htslib.org/download/) for SAMtools installation instructions.
 
-When you install SomatoSim, pip will also automatically download and install any python packages you need to use SomatoSim. You can upgrade your current version of pip using the following command:
+When you install SomatoSim, pip will also automatically download and install any Python packages you need to use SomatoSim. You can upgrade your current version of pip using the following command:
 
 ```text
 $ python3 -m pip install --upgrade pip
