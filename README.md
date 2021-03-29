@@ -214,6 +214,9 @@ Variant evaluation stage runtime: 1.814 seconds
 Total runtime: 55.684 seconds
 ```
 
+## Citation
+Hawari, M.A., Hong, C.S. & Biesecker, L.G. SomatoSim: precision simulation of somatic single nucleotide variants. BMC Bioinformatics 22, 109 (2021). https://doi.org/10.1186/s12859-021-04024-8
+
 ## Attribution
 This is software was developed by Marwan A. Hawari, Celine S. Hong, and Leslie G. Biesecker at the National Human Genome Research Institute (NHGRI), National Institutes of Health (NIH). Please include proper attribution of the NHGRI as the developer of this program and include a link to the following [https://github.com/BieseckerLab/SomatoSim] in all publications and other public disclosures that reference the program and/or include data or research results that were generated utilizing the program.
 
